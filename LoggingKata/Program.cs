@@ -23,12 +23,12 @@ namespace LoggingKata
 
             if(lines.Length == 0)
             {
-                logger.LogError("File has no input");
+                logger.LogError("Error: File has no input");
             }
 
             if(lines.Length == 1)
             {
-                logger.LogError("File has only one line of input");
+                logger.LogWarning("Warning: File has only one line of input");
             }
 
             logger.LogInfo($"Lines: {lines[0]}");

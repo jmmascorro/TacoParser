@@ -21,12 +21,12 @@ namespace LoggingKata
             // Log and error if you get 0 lines and a warning if you get 1 line
             var lines = File.ReadAllLines(csvPath);
 
-            if(lines.Length == 0)
+            if (lines.Length == 0)
             {
                 logger.LogError("Error: File has no input");
             }
 
-            if(lines.Length == 1)
+            if (lines.Length == 1)
             {
                 logger.LogWarning("Warning: File has only one line of input");
             }
@@ -53,8 +53,8 @@ namespace LoggingKata
             // Include the Geolocation toolbox, so you can compare locations: `using GeoCoordinatePortable;`
 
             //HINT NESTED LOOPS SECTION---------------------
-           
-            for(int i = 0; i < locations.Length; i++)
+
+            for (int i = 0; i < locations.Length; i++)
             {
                 // Do a loop for your locations to grab each location as the origin (perhaps: `locA`)
                 var locA = locations[i];
@@ -65,7 +65,7 @@ namespace LoggingKata
                 corA.Longitude = locA.Location.Longitude;
 
                 // Now, do another loop on the locations with the scope of your first loop, so you can grab the "destination" location (perhaps: `locB`)
-                for(int j = 0; j < locations.Length; j++)
+                for (int j = 0; j < locations.Length; j++)
                 {
                     // Create a new Coordinate with your locB's lat and long
                     var locB = locations[j];
@@ -76,21 +76,29 @@ namespace LoggingKata
                     // Now, compare the two using `.GetDistanceTo()`, which returns a double
                     // If the distance is greater than the currently saved distance, update the distance and
                     // the two `ITrackable` variables you set above
-                    if(corA.GetDistanceTo(corB) > distance)
+                    if (corA.GetDistanceTo(corB) > distance)
                     {
                         distance = corA.GetDistanceTo(corB);
                         tacoBell1 = locA;
                         tacoBell2 = locB;
+
                     }
+
                 }
+
 
 
             }
 
             // Once you've looped through everything, you've found the two Taco Bells farthest away from each other.
             logger.LogInfo($"{tacoBell1.Name} and {tacoBell2.Name} are the farthest apart.");
+            logger.LogInfo($"The distance between the two taco bells is {ConvertMetersToMiles(distance)} miles");
 
+        }
+        public static double ConvertMetersToMiles(double meters)
+        {
 
+            return (meters / 1609.344);
         }
     }
 }
